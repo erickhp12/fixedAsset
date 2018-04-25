@@ -1,0 +1,65 @@
+
+{% load staticfiles %}
+<!-- css bootstrap -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- scripts bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="UTF-8">
+        <title>Fixed Asset</title>
+        <link rel="stylesheet" href="{% static 'css/login/loginstyle.css' %}">
+        <script src="{% static '/static/js/generic/mail.js'%}"></script>
+    </head>
+
+    <body onload="displayErrorMessage()">
+        <div class="container-fluid main-container">
+
+            <div class="navegacion-login">
+                <label>FIXED ASSET</label>
+            </div>
+
+
+        <div class="container thumbnail login-card">
+            <div class="login-card-header">
+                Please log in
+            </div>
+            <div class="login-card-body">
+                <form action="{% url 'login.view.url' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="username" name="username" class="input-personalized input-login" required="required" type="text" placeholder="Usuario"/><br>
+                    <input id="password" name="password" class="input-personalized input-login" required="required" type="password" placeholder="Contraseña" />
+                    
+                    <p id="message" class="error-message" id="message">{{ mensaje }}</p>
+                    <button type="submit" class="btn-login" value="Login" >log in</button>
+                
+                    </div>
+                </form>
+                <div class="login-card-footer">
+                    <a href="">i don't remember my user</a>
+                    <!-- <form action="/send_email/" method="POST" id="post-form">
+                        <button type="button" class="btn btn-info" onclick="sendEmail()">No recuerdo mi usuario</button>
+                    </form> -->
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    </body>
+
+
+    <script>
+    function displayErrorMessage() {
+        var mensaje = document.getElementById('message');
+        console.log(mensaje.innerHTML);
+        if (mensaje.innerHTML != 0) {
+            mensaje.style.display="block";
+        }else {
+            mensaje.style.display="none";
+        }  
+    }
+    </script>
+</html>

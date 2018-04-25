@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title> {% block title %} ADEL {% endblock %} </title>
+	{% load staticfiles %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- css google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+
+	<!-- script jquery -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<!-- css bootstrap -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+
+	<!-- scripts bootstrap -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	 crossorigin="anonymous"></script>
+
+	<!-- css adel -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/generic/base.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
+</head>
+
+<body onload="checaCitasConfirmadas()">
+	<div class="col-md-12 navegacion-main">
+		<div class="col-md-1">
+			<img class="img-adel" src="{% static 'img/iconos/logo.png' %}" alt="pacientes">
+		</div>
+		<div class="col-md-10 adel">
+			<label class="adel-text">Administración Dental En Linea</label>
+		</div>
+		<div class="col-md-1 adel-logout">
+			<a href="./logout">
+				<label class="glyphicon glyphicon-log-out"></label> &nbsp;SALIR</a>
+		</div>
+	</div>
+	<!-- *************************************** Modulos *************************************** -->
+	
+</body>
+
+<script></script>
+
+</html>
