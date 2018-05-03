@@ -1,9 +1,143 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .serializers import MainSerializer
 from rest_framework.views import APIView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView, DetailView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Main
+from django.http import HttpResponseRedirect
+
+
+class MainListView(ListView):
+    template_name = "lista.html"
+
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, *args, **kwargs):
+        Query = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = Query.count()
+        paginator = Paginator(Query, 50)
+        page = request.GET.get('page')
+        mensaje = ""
+
+        try:
+            entities = paginator.page(page)
+        except PageNotAnInteger:
+            entities = paginator.page(1)
+        except EmptyPage:
+            entities = paginator.page(paginator.num_pages)
+
+        if total == 0:
+            mensaje = "No tienes informacion registrada"
+
+        context = {
+            'entities': entities,
+            'total': total,
+            'mensaje': mensaje
+        }
+
+        return render(request, self.template_name, context)
+
+
+class MainFormView(CreateView):
+    template_name = "formulario.html"
+
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, *args, **kwargs):
+        user_logged = request.user
+        mensaje = ""
+
+        context = {
+            'mensaje': mensaje
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        mensaje = ""
+        Query = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = Query.count()
+        paginator = Paginator(Query, 50)
+        page = request.GET.get('page')
+        mensaje = ""
+
+        try:
+            entities = paginator.page(page)
+        except PageNotAnInteger:
+            entities = paginator.page(1)
+        except EmptyPage:
+            entities = paginator.page(paginator.num_pages)
+
+        if total == 0:
+            mensaje = "No tienes informacion registrada"
+
+        user = request.user
+        pedimento = request.POST.get('pedimento')
+        numProyecto = request.POST.get('numProyecto')
+        localizacion = request.POST.get('localizacion')
+        ordenCompra = request.POST.get('ordenCompra')
+        marca = request.POST.get('marca')
+        modelo = request.POST.get('modelo')
+        serie = request.POST.get('serie')
+        origen = request.POST.get('origen')
+        precio = request.POST.get('precio')
+        tipoCambio = request.POST.get('tipoCambio')
+        fecha_ingreso = request.POST.get('fecha_ingreso')
+        fecha_pedimento = request.POST.get('fecha_pedimento')
+        descripcion = request.POST.get('descripcion')
+        jssID = request.POST.get('jssID')
+        
+        print "checando si tengo datos"
+        print user
+        print pedimento
+        print numProyecto
+        print localizacion
+        print ordenCompra
+        print marca
+        print modelo
+        print serie
+        print origen
+        print precio
+        print tipoCambio
+        print fecha_ingreso
+        print fecha_pedimento
+        print descripcion
+        print jssID
+
+        try:
+            if pedimento == "":
+                return render(self.request, self.template_name)
+            else:
+                Main.objects.create(
+                    user=user,
+                    pedimento=pedimento,
+                    numProyecto=numProyecto,
+                    localizacion=localizacion,
+                    ordenCompra=ordenCompra,
+                    marca=marca,
+                    modelo=modelo,
+                    serie=serie,
+                    origen=origen,
+                    precio=precio,
+                    tipoCambio=tipoCambio,
+                    fecha_ingreso=fecha_ingreso,
+                    fecha_pedimento=fecha_pedimento,
+                    descripcion=descripcion,
+                    jssID=jssID                    
+                )
+        except Exception as e:
+            mensaje = "Error al crear registro " + str(e)
+
+        context = {
+            'entities': entities,
+            'total': total,
+            'mensaje': mensaje
+        }
+
+        return HttpResponseRedirect('/Main')
 
 
 class SerializerMain(APIView):

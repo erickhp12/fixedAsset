@@ -1,0 +1,195 @@
+{% extends 'index.html' %} 
+{% block title %} Fixed Asset | Form {% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
+    <div class="col-md-2 volver">
+        <a href="/lista.pacientes">
+            <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+        Helper text
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/pacientes40.png' %}" class="helper-img" alt="ups">
+    </div>
+</div>
+
+<div class="container col-md-8 thumbnail col-md-offset-2">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <br>
+            <form method="post">
+                {% csrf_token %}
+
+                <fieldset class="fieldset">
+                    <legend>
+                        <b>Información requerida</b>
+                    </legend>
+
+                    <div class="form-group col-md-6">
+                        <label>Pedimento</label>
+                        {% if main.pedimento %}
+                            <input type="text" value="{{ main.pedimento}}" class="input-personalized" name="pedimento" id="pedimento">
+                        {% else %}
+                            <input type="text" name="pedimento" id="pedimento" class="input-personalized">
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Numero de proyecto</label>
+                        {% if main.numProyecto %}
+                            <input type="text" value="{{ main.numProyecto}}" class="input-personalized" name="numProyecto" id="numProyecto">
+                        {% else %}
+                            <input type="text" name="numProyecto" id="numProyecto" class="input-personalized">
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Localizacion</label>
+                        {% if main.localizacion %}
+                            <input type="text" value="{{ main.localizacion}}" class="input-personalized" name="localizacion" id="localizacion">
+                        {% else %}
+                            <input type="text" name="localizacion" id="localizacion" class="input-personalized">
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Orden de compra</label>
+                        {% if main.ordenCompra %}
+                            <input type="text" value="{{ main.ordenCompra}}" class="input-personalized" name="ordenCompra" id="ordenCompra">
+                        {% else %}
+                            <input type="text" name="ordenCompra" id="ordenCompra" class="input-personalized">
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Marca</label>
+                        {% if main.marca %}
+                            <input type="text" value="{{ main.marca}}" class="input-personalized" name="marca" id="marca">
+                        {% else %}
+                            <input type="text" name="marca" id="marca" class="input-personalized"> 
+                        {% endif %}
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label>Modelo</label>
+                        {% if main.modelo %}
+                            <input type="text" value="{{ main.modelo}}" class="input-personalized" name="modelo" id="modelo">
+                        {% else %}
+                            <input type="text" name="modelo" id="modelo" class="input-personalized"> 
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Serie</label>
+                        {% if main.serie %}
+                            <input type="text" value="{{ main.serie}}" class="input-personalized" name="serie" id="serie">
+                        {% else %}
+                            <input type="text" name="serie" id="serie" class="input-personalized"> 
+                        {% endif %}
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label>Origen</label>
+                        {% if main.origen %}
+                            <input type="text" value="{{ main.origen}}" class="input-personalized" name="origen" id="origen">
+                        {% else %}
+                            <input type="text" name="origen" id="origen" class="input-personalized"> 
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Precio</label>
+                        {% if main.precio %}
+                            <input type="text" value="{{ main.precio}}" class="input-personalized" name="precio" id="precio">
+                        {% else %}
+                            <input type="text" name="precio" id="precio" class="input-personalized">
+                        {% endif %}
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label>Tipo de cambio</label>
+                        {% if main.tipoCambio %}
+                            <input type="text" value="{{ main.tipoCambio}}" class="input-personalized" name="tipoCambio" id="tipoCambio">
+                        {% else %}
+                            <input type="text" name="tipoCambio" id="tipoCambio" class="input-personalized">
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Fecha de ingreso</label>
+                        {% if main.fecha_ingreso %}
+                            <input type="text" value="{{ main.fecha_ingreso}}" class="input-personalized" name="fecha_ingreso" id="fecha_ingreso">
+                        {% else %}
+                            <input type="text" name="fecha_ingreso" id="fecha_ingreso" class="input-personalized">
+                        {% endif %}
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label>Fecha de pedimento</label>
+                        {% if main.fecha_pedimento %}
+                            <input type="text" value="{{ main.fecha_pedimento}}" class="input-personalized" name="fecha_pedimento" id="fecha_pedimento">
+                        {% else %}
+                            <input type="text" name="fecha_pedimento" id="fecha_pedimento" class="input-personalized">
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>JSS ID</label>
+                        {% if main.jssID %}
+                            <input type="text" value="{{ main.jssID}}" class="input-personalized" name="jssID" id="jssID">
+                        {% else %}
+                            <input type="text" name="jssID" id="jssID" class="input-personalized">
+                        {% endif %}
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label>Tipo de cambio</label>
+                        {% if main.tipoCambio %}
+                            <input type="text" value="{{ main.tipoCambio}}" class="input-personalized" name="tipoCambio" id="tipoCambio">
+                        {% else %}
+                            <input type="text" name="tipoCambio" id="tipoCambio" class="input-personalized">
+                        {% endif %}
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-12">
+                        <label>Descripcion</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="5" id="descripcion">{{ main.descripcion }}</textarea>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        {% if paciente.nombre %}
+                        <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar información</button>
+                        {% else %}
+                        <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar paciente</button>
+                        {% endif %}
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,3 +1,22 @@
+/* --------------------------------------------- main-section --------------------------------------------- */
+.basic-color {
+	background-color: #505050;
+	color:white;
+}
+
+.primary-color {
+	background-color:  #4d4d4d;
+}
+
+.primary-color-accent {
+	background-color:  #2c2c2c;
+}
+
+.primary-color-light {
+	background-color:  #bdbdbd;
+}
+
+
 
 /* ----------------------------------- html elementos ---------------------------------------- */
 
@@ -15,7 +34,7 @@ p , span, label, a {
 }
 
 a:hover {
-	color:  #008cba;
+	color:  #4d4d4d;
 	text-decoration: none;
 }
 
@@ -101,11 +120,10 @@ textarea{
 	border-radius: 5px;
 }
 .ui-datepicker-header{
-	background-color: #008cba;
 	color: white;
 }
-.tbl_main > thead{
-	background-color:  #008cba;
+.tbl_main > thead {
+	background: #505050;
 	color: white;
 }
 

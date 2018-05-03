@@ -1,5 +1,7 @@
+
+
+
 .navegacion-main {
-	background-color:  #008cba;
 	margin-bottom: 10px;
 }
 
@@ -44,7 +46,7 @@
 }
 
 .card-title {
-	color: #008cba;
+	color: #4d4d4d;
 	font-size: 20px;
 }
 .card-img-top{
@@ -75,7 +77,7 @@
 }
 
 .tbl-resumen-tr > th {
-	color: #008cba;
+	color: #4d4d4d;
 	text-align: center;
 }
 
@@ -83,7 +85,7 @@
 	text-align: center;
 	padding: 5px;
 	background-color: white;
-	color: #008cba;
+	color: #4d4d4d;
 	font-size: 20px;
 	font-weight: bold;
 	border-bottom: 1px solid rgb(179, 179, 179);

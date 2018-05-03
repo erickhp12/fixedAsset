@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title> {% block title %} ADEL {% endblock %} </title>
+	<title> {% block title %} Fixed Asset {% endblock %} </title>
 	{% load staticfiles %}
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,26 +27,77 @@
 	<!-- css adel -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/generic/base.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
+
 </head>
 
-<body onload="checaCitasConfirmadas()">
-	<div class="col-md-12 navegacion-main">
-		<div class="col-md-1">
-			<img class="img-adel" src="{% static 'img/iconos/logo.png' %}" alt="pacientes">
+<body>
+
+	<div class="topnav no-print primary-color" id="myTopnav">
+		<div class="div-dropdown">
+			<a href="../" class="dropbtn"> FIXED ASSET</a>
 		</div>
-		<div class="col-md-10 adel">
-			<label class="adel-text">Administración Dental En Linea</label>
+
+		<div class="div-dropdown">
+			<button class="dropbtn">
+				Menu 1
+			</button>
+			<div class="dropdown-children">
+				<a href="/Main/Form">
+					<label class="glyphicon glyphicon-plus"></label> Agregar documento</a>
+				<a href="/Main">
+					<label class="glyphicon glyphicon-list"></label> Ver lista</a>
+			</div>
 		</div>
-		<div class="col-md-1 adel-logout">
-			<a href="./logout">
-				<label class="glyphicon glyphicon-log-out"></label> &nbsp;SALIR</a>
+
+		<div class="div-dropdown">
+			<button class="dropbtn">
+				Menu 2
+			</button>
+			<div class="dropdown-children">
+				<a href="/registro.visita">
+					<label class="glyphicon glyphicon-plus"></label> Agregar visita</a>
+				<a href="/lista.visitas">
+					<label class="glyphicon glyphicon-list"></label> Ver lista de visitas</a>
+			</div>
 		</div>
+
+		<div class="div-dropdown div-logout">
+			<button class="dropbtn">
+				<a href="/logout">
+					<label class="glyphicon glyphicon-log-out"></label> Salir</a>
+			</button>
+			<div class="dropdown-children"></div>
+		</div>
+
+		<div class="div-dropdown div-logout">
+			<button class="dropbtn">
+				<a href="#">
+					<label class="glyphicon glyphicon-cog"></label> {{ user.get_username }}</a>
+			</button>
+		</div>
+
+
+		<a href="javascript:void(0);" style="font-size:35px; margin-top: 4px;" class="icon" onclick="myFunction()">&#9776;</a>
 	</div>
-	<!-- *************************************** Modulos *************************************** -->
-	
+
+
+
+	<!-- ok ******************************************************* -->
+
+	{% block body %} {% endblock %}
+
 </body>
 
-<script></script>
+<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} else {
+			x.className = "topnav";
+		}
+	}
+
+</script>
 
 </html>

@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% block title %} Fixed Asset | List {% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+ 
+ <!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2 volver">
+        <a href="../">
+            <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+        <label>Fixed asset
+            <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/pacientes40.png' %}" class="helper-img" alt="ups">
+    </div>
+</div>
+
+<section class="container thumbnail grid">
+    <!-- ************************************  FORM ************************************ -->
+    <section>
+        <form action="" method=post class="container-fluid grid-elements">
+            {% csrf_token %}
+            <div class="col-md-8">
+                <input type="text" id="myInput" name="paciente" placeholder="busqueda" class="input-personalized"/>
+            </div>
+            <div class="col-md-2">
+                <a>
+                    <input type="submit" class="btn btn-default" value="Buscar" />
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/Main/Form">
+                    <input type="button" class="btn btn-success" value="+ Agregar formato" />
+                </a>
+            </div>
+        </form>
+    </section>
+    <hr>
+
+    <div class="table-responsive grid-table">
+        <table class="table tbl_main">
+            <thead>
+                <tr>
+                    <th>pedimento</th>
+                    <th>JSS ID</th>
+                    <th>Numero de proyecto</th>
+                    <th>Localizacion</th>
+                    <th>Orden de compra</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Tipo de cambio</th>
+                    <th>Fecha de inicio</th>
+                    <th scope="col">Edición</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            {% for entity in entities %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ entity.pedimento }}</th>
+                    <td>{{ entity.jssID }}</td>
+                    <td>{{ entity.numProyecto }}</td>
+                    <td>{{ entity.localizacion }}</td>
+                    <td>{{ entity.ordenCompra }}</td>
+                    <td>{{ entity.marca }}</td>
+                    <td>{{ entity.precio }}</td>
+                    <td>{{ entity.tipoCambio }}</td>
+                    <td>{{ entity.fecha_inicio }}</td>  
+                    <td>
+                        <a href="">
+                            <label class="glyphicon glyphicon-pencil"></label> Editar</a>
+                    </td>
+                    <td>
+                        <a data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ entity.nombre }}','{{ entity.pk }}')">
+                            <label class="glyphicon glyphicon-trash"></label> Borrar</a>
+                    </td>
+                </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+    </div> 
+</section>
+{% endblock %}
