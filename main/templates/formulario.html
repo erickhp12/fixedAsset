@@ -9,14 +9,14 @@
 <!-- ************************************  HELPER ************************************ -->
 <div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
     <div class="col-md-2 volver">
-        <a href="/lista.pacientes">
+        <a href="/Main">
             <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
     </div>
-    <div class="col-md-9 bs-header-text helper-text">
-        Helper text
+    <div class="col-md-8 bs-header-text helper-text">
+        <b>Formulario</b>
     </div>
     <div class="helper-img col-md-1">
-        <img src="{% static 'img/iconos/pacientes40.png' %}" class="helper-img" alt="ups">
+        <img src="{% static 'img/iconos/list.png' %}" class="helper-img" alt="ups" >
     </div>
 </div>
 
@@ -134,9 +134,13 @@
                     <div class="form-group col-md-6">
                         <label>Fecha de ingreso</label>
                         {% if main.fecha_ingreso %}
-                            <input type="text" value="{{ main.fecha_ingreso}}" class="input-personalized" name="fecha_ingreso" id="fecha_ingreso">
+                            
+                            <input type="text" id="datepickerf" name="fecha_ingreso"
+                             onclick="clear_textf()" class="input-personalized"  />
                         {% else %}
-                            <input type="text" name="fecha_ingreso" id="fecha_ingreso" class="input-personalized">
+                            
+                            <input type="text" id="datepicker" name="fecha_ingreso"
+                             onclick="clear_text()" class="input-personalized"  />
                         {% endif %}
                     </div>
                 
@@ -145,7 +149,9 @@
                         {% if main.fecha_pedimento %}
                             <input type="text" value="{{ main.fecha_pedimento}}" class="input-personalized" name="fecha_pedimento" id="fecha_pedimento">
                         {% else %}
-                            <input type="text" name="fecha_pedimento" id="fecha_pedimento" class="input-personalized">
+                            
+                            <input type="text" id="datepickerf" name="fecha_pedimento"
+                             onclick="clear_textf()" class="input-personalized"  />
                         {% endif %}
                     </div>
                 </fieldset>
@@ -159,15 +165,7 @@
                             <input type="text" name="jssID" id="jssID" class="input-personalized">
                         {% endif %}
                     </div>
-                
-                    <div class="form-group col-md-6">
-                        <label>Tipo de cambio</label>
-                        {% if main.tipoCambio %}
-                            <input type="text" value="{{ main.tipoCambio}}" class="input-personalized" name="tipoCambio" id="tipoCambio">
-                        {% else %}
-                            <input type="text" name="tipoCambio" id="tipoCambio" class="input-personalized">
-                        {% endif %}
-                    </div>
+
                 </fieldset>
 
                 <fieldset class="fieldset">
@@ -179,11 +177,11 @@
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        {% if paciente.nombre %}
+                        <!--- {% if paciente.nombre %} 
                         <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar información</button>
-                        {% else %}
-                        <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar paciente</button>
-                        {% endif %}
+                        {% else %} -->
+                        <input type="button" class="btn btn-agregar" value="Agregar" />
+                        <!--{% endif %}-->
                         <br>
                         <br>
                     </div>

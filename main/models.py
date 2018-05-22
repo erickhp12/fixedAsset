@@ -13,7 +13,7 @@ class Main(models.Model):
     serie = models.CharField(max_length=200,null=True,unique=False,verbose_name=u'Serie')
     origen = models.CharField(max_length=200,null=True,unique=False,verbose_name=u'Origen')
     precio = models.CharField(max_length=200,null=True,unique=False,verbose_name=u'Precio')
-    tipoCambio = models.IntegerField(null=True,unique=False,verbose_name=u'Tipo de cambio')
+    tipoCambio = models.DecimalField(max_digits=6, decimal_places=2,null=True,unique=False,verbose_name=u'Tipo de cambio')
     fecha_ingreso = models.DateTimeField(auto_now_add=False, verbose_name=u'fecha de ingreso')
     fecha_pedimento = models.DateTimeField(auto_now_add=False, verbose_name=u'fecha de pedimento')
     descripcion = models.CharField(max_length=500,null=True,unique=False,verbose_name=u'Descripcion')

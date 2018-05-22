@@ -109,6 +109,7 @@ class MainFormView(CreateView):
 
         try:
             if pedimento == "":
+                print  "1"
                 return render(self.request, self.template_name)
             else:
                 Main.objects.create(
@@ -128,9 +129,11 @@ class MainFormView(CreateView):
                     descripcion=descripcion,
                     jssID=jssID                    
                 )
+                print "2"
         except Exception as e:
             mensaje = "Error al crear registro " + str(e)
-
+            print "3"
+            print str(e)
         context = {
             'entities': entities,
             'total': total,
