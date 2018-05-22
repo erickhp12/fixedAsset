@@ -20,3 +20,6 @@ class Main(models.Model):
     jssID = models.CharField(max_length=200,null=True,unique=False,verbose_name=u'JSS ID')
     fecha_inicio = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha_inicio')
 
+    @permalink
+    def url_editar_main(self):
+        return ('formulario', [int(self.pk)])

@@ -6,9 +6,11 @@ from .serializers import MainSerializer
 from rest_framework.views import APIView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView
+from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Main
+from .forms import RegistrarMain
 from django.http import HttpResponseRedirect
 
 
@@ -141,6 +143,97 @@ class MainFormView(CreateView):
         }
 
         return HttpResponseRedirect('/Main')
+
+
+class UpdateMainFormView(ListView):
+    template_name = "formulario.html"
+    template_main = "lista.html"
+
+    def get(self, request, pk, *args, **kwargs):
+        loger_user = request.user
+        entity = Main.objects.get(user=request.user, id=pk)
+        form = RegistrarMain()
+
+        mensaje = ""
+        context = {
+            'entity': entity,
+            'mensaje': mensaje,
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        mensaje = ""
+        entities = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = entities.count()
+        user = request.user
+        pedimento = request.POST.get('pedimento')
+        numProyecto = request.POST.get('numProyecto')
+        localizacion = request.POST.get('localizacion')
+        ordenCompra = request.POST.get('ordenCompra')
+        marca = request.POST.get('marca')
+        modelo = request.POST.get('modelo')
+        serie = request.POST.get('serie')
+        origen = request.POST.get('origen')
+        precio = request.POST.get('precio')
+        tipoCambio = request.POST.get('tipoCambio')
+        fecha_ingreso = request.POST.get('fecha_ingreso')
+        fecha_pedimento = request.POST.get('fecha_pedimento')
+        descripcion = request.POST.get('descripcion')
+        jssID = request.POST.get('jssID')
+
+        print "checando si tengo datos EDITAR"
+        print user
+        print pedimento
+        print numProyecto
+        print localizacion
+        print ordenCompra
+        print marca
+        print modelo
+        print serie
+        print origen
+        print precio
+        print tipoCambio
+        print fecha_ingreso
+        print fecha_pedimento
+        print descripcion
+        print jssID
+
+        try:
+            main = Main.objects.get(user=request.user, id=pk)
+            main.pedimento = pedimento
+            main.numProyecto = numProyecto
+            main.localizacion = localizacion
+            main.ordenCompra = ordenCompra
+            main.marca = marca
+            main.modelo = modelo
+            main.serie = serie
+            main.origen = origen
+            main.precio = precio
+            main.tipoCambio = tipoCambio
+            main.fecha_ingreso = fecha_ingreso
+            main.fecha_pedimento = fecha_pedimento
+            main.descripcion = descripcion
+            main.jssID = jssID
+            main.save()
+        except Exception as e:
+            print "ALGO SALIO MAL EDITAR" + str(e)
+            mensaje = "Error al editar gasto " + str(e)
+
+        context = {
+                    'entities': entities,
+                    'total': total,
+                    'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/Main')
+
+
+class DeleteMainView(ListView):
+    def get(self, request, pk, **kwargs):
+        Main.objects.filter(id=pk, user=request.user).delete()
+        return render(self.request, 'lista.html')
 
 
 class SerializerMain(APIView):
