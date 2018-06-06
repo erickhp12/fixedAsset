@@ -62,10 +62,12 @@ class AccountView(TemplateView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-
+        entities = Main.objects.filter(user=request.user).order_by('-fecha_inicio')[:10]
+        
         mensaje = ""
         
         context = {
+                    'entities',
                     'mensaje': mensaje    
                     }
         return render(request,self.template_name, context)
