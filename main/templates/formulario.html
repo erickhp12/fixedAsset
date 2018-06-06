@@ -35,7 +35,8 @@
                     <div class="form-group col-md-6">
                         <label>Pedimento</label>
                         {% if entity.pedimento %}
-                            <input type="text" value="{{ entity.pedimento}}" class="input-personalized" name="pedimento" id="pedimento">
+                            <input type="text" value="{{ entity.pedimento}}" class="input-personalized"
+                            name="pedimento" id="pedimento" onload="isDisabled()" >
                         {% else %}
                             <input type="text" name="pedimento" id="pedimento" class="input-personalized">
                         {% endif %}
@@ -187,4 +188,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function isDisabled(){
+        console.log('2018');
+    }
+</script>
+
 {% endblock %}
