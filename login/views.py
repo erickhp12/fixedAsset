@@ -67,8 +67,8 @@ class AccountView(TemplateView):
         mensaje = ""
         
         context = {
-                    'entities',
-                    'mensaje': mensaje    
+                    'entities': entities,
+                    'mensaje': mensaje,  
                     }
         return render(request,self.template_name, context)
 
