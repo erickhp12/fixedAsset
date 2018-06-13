@@ -15,11 +15,11 @@ from django.http import HttpResponseRedirect
 
 
 class MarcaListView(ListView):
-    template_name = "lista.html"
+    template_name = "listaMarcas.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        Query = Marca.objects.filter(user=request.user).order_by('-fecha_inicio')
+        Query = Marca.objects.order_by('-fecha_inicio')
         total = Query.count()
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
@@ -45,7 +45,7 @@ class MarcaListView(ListView):
 
 
 class MarcaFormView(CreateView):
-    template_name = "formulario.html"
+    template_name = "formularioMarcas.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
@@ -64,7 +64,7 @@ class MarcaFormView(CreateView):
         total = Query.count()
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
-        mensaje = ""
+        mensaje = "sin mensaje"
 
         try:
             entities = paginator.page(page)
@@ -77,59 +77,24 @@ class MarcaFormView(CreateView):
             mensaje = "No tienes informacion registrada"
 
         user = request.user
-        pedimento = request.POST.get('pedimento')
-        numProyecto = request.POST.get('numProyecto')
-        localizacion = request.POST.get('localizacion')
-        ordenCompra = request.POST.get('ordenCompra')
-        marca = request.POST.get('marca')
-        modelo = request.POST.get('modelo')
-        serie = request.POST.get('serie')
-        origen = request.POST.get('origen')
-        precio = request.POST.get('precio')
-        tipoCambio = request.POST.get('tipoCambio')
-        fecha_ingreso = request.POST.get('fecha_ingreso')
-        fecha_pedimento = request.POST.get('fecha_pedimento')
-        descripcion = request.POST.get('descripcion')
+        nombre = request.POST.get('nombre')
+        observaciones = request.POST.get('observaciones')
         jssID = request.POST.get('jssID')
         
         print "checando si tengo datos"
         print user
-        print pedimento
-        print numProyecto
-        print localizacion
-        print ordenCompra
-        print marca
-        print modelo
-        print serie
-        print origen
-        print precio
-        print tipoCambio
-        print fecha_ingreso
-        print fecha_pedimento
-        print descripcion
-        print jssID
+        print nombre
+        print observaciones
 
         try:
-            if pedimento == "":
+            if nombre == "":
                 print  "1"
                 return render(self.request, self.template_name)
             else:
                 Marca.objects.create(
                     user=user,
-                    pedimento=pedimento,
-                    numProyecto=numProyecto,
-                    localizacion=localizacion,
-                    ordenCompra=ordenCompra,
-                    marca=marca,
-                    modelo=modelo,
-                    serie=serie,
-                    origen=origen,
-                    precio=precio,
-                    tipoCambio=tipoCambio,
-                    fecha_ingreso=fecha_ingreso,
-                    fecha_pedimento=fecha_pedimento,
-                    descripcion=descripcion,
-                    jssID=jssID                    
+                    nombre=nombre,
+                    observaciones=observaciones              
                 )
                 print "2"
         except Exception as e:

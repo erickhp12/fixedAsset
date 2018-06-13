@@ -1,0 +1,115 @@
+{% extends 'base.html' %} {% block title %} Fixed Asset | List {% endblock %} {% block body %} {% load staticfiles %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{% static '/static/js/generic/delete.js'%}"></script>
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2 volver">
+        <a href="../">
+            <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-8 bs-header-text helper-text">
+        <label>
+            <b>Activo Fijo</b>
+            <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/tools.png' %}" class="helper-img" alt="ups2">
+    </div>
+</div>
+
+<section class="container thumbnail grid">
+    <!-- ************************************  FORM ************************************ -->
+    <section>
+        <form action="" method=post class="container-fluid grid-elements">
+            {% csrf_token %}
+            <div class="col-md-8">
+                <input type="text" id="myInput" name="paciente" placeholder="busqueda" class="input-personalized" />
+            </div>
+            <div class="col-md-2">
+                <a>
+                    <input type="submit" class="btn btn-default" value="Buscar" />
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/Main/Form">
+                    <input type="button" class="btn btn-agregar" value="+ Agregar formato" />
+                </a>
+            </div>
+        </form>
+    </section>
+    <hr>
+
+    <div class="table-responsive grid-table">
+        <table class="table tbl_main">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Activo</th>
+                    <th>fecha de inicio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            {% for entity in entities %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ entity.username }}</th>
+                    <td>{{ entity.first_name }} {{ entity.last_name }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.is_active }}</td>
+                    <td>{{ entity.date_joined }}</td>
+                    <td>
+                        <a href="{{ entity.url_editar_main }}">
+                            <label class="glyphicon glyphicon-pencil"></label> Editar</a>
+                    </td>
+                </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</section>
+
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">
+                <img src="{% static 'img/iconos/tools.png' %}" alt="x">
+                <label style="text-align: center;">Confirmación</label>
+            </h4>
+        </div>
+        <div class="modal-body" style="height:150px; background-color: white;">
+            <h3 style="text-align: center;">¿Estas seguro de eliminar este pedimento?
+                <br>
+                <b id="textoPedimento"></b>
+                <span id="idBorrar" style="visibility:hidden;"></span>
+            </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" onclick="deleteMain()">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<!-- *********************************** script modal *********************************** -->
+<script>
+    var modal = document.getElementById('myModal');
+    var content_pedimento = document.getElementById('textoPedimento');
+    var pk_borrar = document.getElementById('idBorrar');
+
+    function open_modal_borrar(item, id) {
+        content_pedimento.innerHTML = item;
+        pk_borrar.innerHTML = id;
+    }
+
+</script> {% endblock %}
+

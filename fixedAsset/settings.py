@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'login',
     'marca',
-    'main'
+    'main',
+    'usuarios',
 ]
 
 SITE_ID = 1

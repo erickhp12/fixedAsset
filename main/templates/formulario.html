@@ -33,11 +33,12 @@
                     </legend>
 
                     <div class="form-group col-md-6">
-                        <label>Pedimento</label>
                         {% if entity.pedimento %}
+                            <label>Pedimento</label>
                             <input type="text" value="{{ entity.pedimento}}" class="input-personalized"
-                            name="pedimento" id="pedimento" onload="isDisabled()" >
+                            name="pedimento" id="pedimento">
                         {% else %}
+                            <label>Pedimento</label>
                             <input type="text" name="pedimento" id="pedimento" class="input-personalized">
                         {% endif %}
                     </div>
@@ -74,11 +75,16 @@
                 <fieldset class="fieldset">
                     <div class="form-group col-md-6">
                         <label>Marca</label>
-                        {% if entity.marca %}
-                            <input type="text" value="{{ entity.marca}}" class="input-personalized" name="marca" id="marca">
-                        {% else %}
-                            <input type="text" name="marca" id="marca" class="input-personalized"> 
-                        {% endif %}
+                        <select id="marca" name="marca">
+                            {% if entity.marca %}
+                                <option value="%">{{ entity.marca }}</option>
+                            {% else %}
+                                <option value="%">------</option>
+                            {% endif %}
+                            {% for marca in marcas %}
+                                <option name="marca" id="marca" value="{{ marca.nombre }}">{{ marca.nombre }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 
                     <div class="form-group col-md-6">

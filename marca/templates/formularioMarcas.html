@@ -1,0 +1,70 @@
+{% extends 'index.html' %} {% block title %} Fixed Asset | Form {% endblock %} {% block body %} {% load staticfiles %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
+    <div class="col-md-2 volver">
+        <a href="/Main">
+            <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-8 bs-header-text helper-text">
+        <b>Agregar marca</b>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/list.png' %}" class="helper-img" alt="ups">
+    </div>
+</div>
+
+<div class="container col-md-8 thumbnail col-md-offset-2">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <br>
+            <form method="post">
+                {% csrf_token %}
+
+                <fieldset class="fieldset">
+                    <legend>
+                        <b>Información requerida</b>
+                    </legend>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-12">
+                        <label>Nombre</label>
+                        {% if entity.nombre %}
+                            <input type="text" value="{{ entity.nombre }}" class="input-personalized" name="nombre" id="nombre">
+                        {% else %}
+                            <input type="text" name="nombre" id="nombre" class="input-personalized">
+                        {% endif %}
+                    </div>
+
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-12">
+                        <label>Observaciones</label>
+                        <textarea class="form-control" id="observaciones" name="observaciones" rows="5" id="observaciones">{{ entity.observaciones }}</textarea>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        {% if entity.pedimento %}
+                            <button type="submit" onclick="set_empty_values()" class="btn btn-agregar col-md-4">Actualizar información</button>
+                        {% else %}
+                            <button type="submit" onclick="set_empty_values()" class="btn btn-agregar col-md-4">Agregar marca</button>
+                        {% endif %}
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function isDisabled() {
+        console.log('2018');
+    }
+</script> {% endblock %}

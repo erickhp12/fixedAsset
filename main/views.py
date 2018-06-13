@@ -10,8 +10,11 @@ from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Main
+from marca.models import Marca
 from .forms import RegistrarMain
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 
 class MainListView(ListView):
@@ -19,7 +22,7 @@ class MainListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        Query = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
+        Query = Main.objects.all().order_by('-fecha_inicio')
         total = Query.count()
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
@@ -50,17 +53,21 @@ class MainFormView(CreateView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         user_logged = request.user
+        grupo = Group.objects.get(user=request.user).strip()
+        marcas = Marca.objects.order_by('-nombre')
         mensaje = ""
 
         context = {
-            'mensaje': mensaje
+            'mensaje': mensaje,
+            'grupo': grupo,
+            'marcas':marcas
         }
 
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         mensaje = ""
-        Query = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
+        Query = Main.objects.all().order_by('-fecha_inicio')
         total = Query.count()
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
@@ -81,7 +88,8 @@ class MainFormView(CreateView):
         numProyecto = request.POST.get('numProyecto')
         localizacion = request.POST.get('localizacion')
         ordenCompra = request.POST.get('ordenCompra')
-        marca = request.POST.get('marca')
+        marcaSeleccionada = request.POST.get('marca')
+        marca = Marca.objects.filter(nombre=marcaSeleccionada).first()
         modelo = request.POST.get('modelo')
         serie = request.POST.get('serie')
         origen = request.POST.get('origen')
@@ -93,6 +101,7 @@ class MainFormView(CreateView):
         jssID = request.POST.get('jssID')
         
         print "checando si tengo datos"
+        print marcaSeleccionada
         print user
         print pedimento
         print numProyecto
@@ -150,13 +159,18 @@ class UpdateMainFormView(ListView):
     template_main = "lista.html"
 
     def get(self, request, pk, *args, **kwargs):
+        print "empieza"
         loger_user = request.user
         entity = Main.objects.get(user=request.user, id=pk)
+        grupo = Group.objects.get(user=request.user).strip()
+        print "entity edicion" + str(entity)
+        
         form = RegistrarMain()
 
         mensaje = ""
         context = {
             'entity': entity,
+            'grupo':grupo,
             'mensaje': mensaje,
             'form': form
         }
