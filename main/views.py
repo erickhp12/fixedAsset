@@ -53,13 +53,11 @@ class MainFormView(CreateView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        grupo = Group.objects.get(user=request.user).strip()
         marcas = Marca.objects.order_by('-nombre')
         mensaje = ""
 
         context = {
             'mensaje': mensaje,
-            'grupo': grupo,
             'marcas':marcas
         }
 
@@ -120,7 +118,6 @@ class MainFormView(CreateView):
 
         try:
             if pedimento == "":
-                print  "1"
                 return render(self.request, self.template_name)
             else:
                 Main.objects.create(
@@ -140,10 +137,8 @@ class MainFormView(CreateView):
                     descripcion=descripcion,
                     jssID=jssID                    
                 )
-                print "2"
         except Exception as e:
             mensaje = "Error al crear registro " + str(e)
-            print "3"
             print str(e)
         context = {
             'entities': entities,
@@ -156,14 +151,13 @@ class MainFormView(CreateView):
 
 class UpdateMainFormView(ListView):
     template_name = "formulario.html"
-    template_main = "lista.html"
 
     def get(self, request, pk, *args, **kwargs):
-        print "empieza"
-        loger_user = request.user
+        user_logged = request.user
         entity = Main.objects.get(user=request.user, id=pk)
-        grupo = Group.objects.get(user=request.user).strip()
-        print "entity edicion" + str(entity)
+        grupo_id = Group.objects.get(id=request.user)
+        grupo = grupo.strip()
+        print "Entity edicion" + str(entity)
         
         form = RegistrarMain()
 
@@ -178,6 +172,7 @@ class UpdateMainFormView(ListView):
         return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
+        print "empieza 1"
         mensaje = ""
         entities = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
         total = entities.count()

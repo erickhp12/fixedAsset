@@ -57,6 +57,11 @@ class LoginView(TemplateView):
                     }
             return render(request, self.template_name, ctx)
 
+
+class AboutView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return render(request, "about.html")
+
 class AccountView(TemplateView):
     template_name = 'cuenta.html'
 

@@ -23,4 +23,4 @@ class Main(models.Model):
 
     @permalink
     def url_editar_main(self):
-        return ('formulario', [int(self.pk)])
+        return ('formularioMain', [int(self.pk)])
