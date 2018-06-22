@@ -58,9 +58,20 @@ class LoginView(TemplateView):
             return render(request, self.template_name, ctx)
 
 
-class AboutView(TemplateView):
+class MisionView(TemplateView):
     def get(self, request, *args, **kwargs):
-        return render(request, "about.html")
+        return render(request, "mision.html")
+
+
+class VisionView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return render(request, "vision.html")
+
+
+class HistoryView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return render(request, "historia.html")
+
 
 class AccountView(TemplateView):
     template_name = 'cuenta.html'

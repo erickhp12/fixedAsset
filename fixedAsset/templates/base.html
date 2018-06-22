@@ -38,17 +38,16 @@
 			<a href="../" class="dropbtn"> FIXED ASSET</a>
 		</div>
 
-
 		<div class="div-dropdown">
 			<button class="dropbtn">
-				<a href="/acerca-de" style="color:white;">
-					<label class="glyphicon glyphicon-pluqs"></label> JSS
-				</a>
+				JSS
 			</button>
-			
+			<div class="dropdown-children">
+				<a href="{% url 'mision' %}"><label class="glyphicon glyphicon-minus"></label> Mision</a>
+				<a href="{% url 'vision' %}"><label class="glyphicon glyphicon-minus"></label> Vision</a>
+				<a href="{% url 'historia' %}"><label class="glyphicon glyphicon-minus"></label> Historia</a>
+			</div>
 		</div>
-
-
 
 		<div class="div-dropdown">
 			<button class="dropbtn">
