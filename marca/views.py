@@ -198,7 +198,7 @@ class UpdateMarcaFormView(ListView):
 class DeleteMarcaView(ListView):
     def get(self, request, pk, **kwargs):
         Marca.objects.filter(id=pk, user=request.user).delete()
-        return render(self.request, 'lista.html')
+        return render(self.request, 'listaMarcas.html')
 
 
 class SerializerMarca(APIView):

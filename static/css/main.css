@@ -271,6 +271,20 @@ textarea{
 		margin-bottom: 15px;
 	}
 }
+/* -------------------------------------- print section ------------------------------------------------ */
+.p-file{
+	font-size: 16px;
+    font-weight: 600;
+}
+
+.link-descargable{
+    color: #4eabf3;
+    font-size: 16px;
+    font-weight: 600;
+}
+.texto-link-descargable{
+
+}
 
 /* -------------------------------------- print section ------------------------------------------------ */
 .recetas-print-area{

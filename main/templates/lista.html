@@ -2,6 +2,8 @@
 {% block title %} Fixed Asset | List {% endblock %}
 
 {% block body %}
+<body onload="checaTerminados()">
+
 {% load staticfiles %}
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="{% static '/static/js/generic/delete.js'%}"></script>
@@ -28,7 +30,7 @@
         <form action="" method=post class="container-fluid grid-elements">
             {% csrf_token %}
             <div class="col-md-8">
-                <input type="text" id="myInput" name="paciente" placeholder="busqueda" class="input-personalized"/>
+                <input type="text" id="search" name="search" placeholder="busqueda" class="input-personalized"/>
             </div>
             <div class="col-md-2">
                 <a>
@@ -54,23 +56,23 @@
                     <th>Localizacion</th>
                     <th>Orden de compra</th>
                     <th>Precio</th>
-                    <th>Tipo de cambio</th>
-                    <th>Fecha de inicio</th>
+                    <th>Fecha inicio</th>
+                    <th>Terminado</th>
                     <th scope="col">Edición</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             {% for entity in entities %}
             <tbody>
-                <tr>
-                    <th scope="row">{{ entity.pedimento }}</th>
+                <tr class="TRPainted">
+                    <td>{{ entity.pedimento }}</td>
                     <td>{{ entity.jssID }}</td>
                     <td>{{ entity.numProyecto }}</td>
                     <td>{{ entity.localizacion }}</td>
                     <td>{{ entity.ordenCompra }}</td>
                     <td>{{ entity.precio }}</td>
-                    <td>{{ entity.tipoCambio }}</td>
                     <td>{{ entity.fecha_inicio }}</td>  
+                    <td class="TDTerminado">{{ entity.terminado }}</td>
                     <td>
                         <a href="{{ entity.url_editar_main }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
                     </td>
@@ -112,7 +114,7 @@
         </div>
     </div>
 </div>
-
+</body>
 <!-- *********************************** script modal *********************************** -->
 <script>
     var modal = document.getElementById('myModal');
@@ -122,6 +124,23 @@
     function open_modal_borrar(item, id) {
         content_pedimento.innerHTML = item;
         pk_borrar.innerHTML = id;
+    }
+    function checaTerminados() {
+        console.log('ENTRE AL METODO');
+        var TRPainted = document.getElementsByClassName('TRPainted');
+        var TDTerminado = document.getElementsByClassName('TDTerminado');
+        console.log(TRPainted.length);
+        for (i = 0; i < TRPainted.length; i++) {
+            if (TDTerminado[i].innerHTML == 'True') {
+                console.log('1');
+                TRPainted[i].style.backgroundColor = 'rgba(65, 198, 92, 0.47)';
+                TDTerminado[i].innerHTML = '<label class="glyphicon glyphicon-ok"></label>';
+            } else if (TDTerminado[i].innerHTML == 'False') {
+                console.log('2');
+                TRPainted[i].style.backgroundColor = 'rgba(255, 224, 5, 0.23)';
+                TDTerminado[i].innerHTML = '<label class="glyphicon glyphicon-minus"></label>';
+            }
+        }
     }
 
 </script>

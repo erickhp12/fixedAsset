@@ -24,6 +24,7 @@ class MainListView(ListView):
     def get(self, request, *args, **kwargs):
         Query = Main.objects.all().order_by('-fecha_inicio')
         total = Query.count()
+
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
         mensaje = ""
@@ -47,17 +48,43 @@ class MainListView(ListView):
         return render(request, self.template_name, context)
 
 
+    def post(self, request, *args, **kwargs):
+        search = request.POST.get('search')
+        mensaje = ""
+        entities = Main.objects.all().filter(pedimento__icontains=search
+                ) | Main.objects.all().filter(numProyecto__icontains=search
+                ) | Main.objects.all().filter(localizacion__icontains=search).order_by('-fecha_inicio')
+        total = entities.count()
+
+        if total == 0:
+            mensaje = "No tienes registros..."
+
+        context = {
+                    'entities':entities,
+                    'total':total,
+                    'mensaje':mensaje     
+                    }
+        
+        return render(self.request, self.template_name, context)
+
 class MainFormView(CreateView):
     template_name = "formulario.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         user_logged = request.user
+        form = RegistrarMain()
+        puedeEditar = False
+        if request.user.groups.filter(name="aduanas").exists():
+            puedeEditar = True
+
         marcas = Marca.objects.order_by('-nombre')
         mensaje = ""
 
         context = {
             'mensaje': mensaje,
+            'form':form,
+            'puedeEditar': puedeEditar,
             'marcas':marcas
         }
 
@@ -70,7 +97,6 @@ class MainFormView(CreateView):
         paginator = Paginator(Query, 50)
         page = request.GET.get('page')
         mensaje = ""
-
         try:
             entities = paginator.page(page)
         except PageNotAnInteger:
@@ -154,25 +180,25 @@ class UpdateMainFormView(ListView):
 
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
-        entity = Main.objects.get(user=request.user, id=pk)
-        grupo_id = Group.objects.get(id=request.user)
-        grupo = grupo.strip()
-        print "Entity edicion" + str(entity)
-        
+        entity = Main.objects.get(id=pk)
+        marcas = Marca.objects.order_by('-nombre')
         form = RegistrarMain()
+        puedeEditar = False
+        if request.user.groups.filter(name="aduanas").exists():
+            puedeEditar = True
 
         mensaje = ""
         context = {
-            'entity': entity,
-            'grupo':grupo,
-            'mensaje': mensaje,
-            'form': form
+            'entity':entity,
+            'puedeEditar':puedeEditar,
+            'mensaje':mensaje,
+            'marcas':marcas,
+            'form':form,
         }
 
         return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
-        print "empieza 1"
         mensaje = ""
         entities = Main.objects.filter(user=request.user).order_by('-fecha_inicio')
         total = entities.count()
@@ -181,7 +207,8 @@ class UpdateMainFormView(ListView):
         numProyecto = request.POST.get('numProyecto')
         localizacion = request.POST.get('localizacion')
         ordenCompra = request.POST.get('ordenCompra')
-        marca = request.POST.get('marca')
+        marcaSeleccionada = request.POST.get('marca')
+        marca = Marca.objects.filter(nombre=marcaSeleccionada).first()
         modelo = request.POST.get('modelo')
         serie = request.POST.get('serie')
         origen = request.POST.get('origen')
@@ -191,6 +218,7 @@ class UpdateMainFormView(ListView):
         fecha_pedimento = request.POST.get('fecha_pedimento')
         descripcion = request.POST.get('descripcion')
         jssID = request.POST.get('jssID')
+        imagen = request.POST.get('imagen')
 
         print "checando si tengo datos EDITAR"
         print user
@@ -208,9 +236,10 @@ class UpdateMainFormView(ListView):
         print fecha_pedimento
         print descripcion
         print jssID
+        print imagen
 
         try:
-            main = Main.objects.get(user=request.user, id=pk)
+            main = Main.objects.get(id=pk)
             main.pedimento = pedimento
             main.numProyecto = numProyecto
             main.localizacion = localizacion
@@ -225,6 +254,7 @@ class UpdateMainFormView(ListView):
             main.fecha_pedimento = fecha_pedimento
             main.descripcion = descripcion
             main.jssID = jssID
+            main.imagen = imagen
             main.save()
         except Exception as e:
             print "ALGO SALIO MAL EDITAR" + str(e)
@@ -249,8 +279,6 @@ class SerializerMain(APIView):
     def get(self, request, format=None):
         snippets = Main.objects.all()
         serializer = MainSerializer(snippets, many=True)
-        print "JSON RESPUESTA "
-        print serializer.data
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -268,6 +296,4 @@ class SerializerSingleMain(APIView):
     def get(self, request, pk, format=None):
         snippets = Main.objects.get(id=pk)
         serializer = MainSerializer(snippets, many=False)
-        print "JSON RESPUESTA "
-        print serializer.data
         return Response(serializer.data)

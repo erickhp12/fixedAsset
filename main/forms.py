@@ -8,3 +8,5 @@ class RegistrarMain(ModelForm):
     class Meta:
         model = models.Main
         exclude = []
+        widgets = {
+            'origen': forms.Select(attrs={'class': 'form-control'})}

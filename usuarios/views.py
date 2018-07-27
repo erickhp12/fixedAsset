@@ -28,10 +28,6 @@ class UsuariosListView(ListView):
         total = entities.count()
         mensaje = ""
 
-        print "USUARIOS"
-        for q in entities:
-            print q.username
-
         if total == 0:
             mensaje = "No tienes informacion registrada"
 

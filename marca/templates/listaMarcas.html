@@ -88,15 +88,15 @@
             </h4>
         </div>
         <div class="modal-body" style="height:150px; background-color: white;">
-            <h3 style="text-align: center;">¿Estas seguro de eliminar este pedimento?
+            <h3 style="text-align: center;">¿Estas seguro de eliminar esta marca?
                 <br>
-                <b id="textoPedimento"></b>
+                <b id="textoMarca"></b>
                 <span id="idBorrar" style="visibility:hidden;"></span>
             </h3>
         </div>
         <div class="modal-footer" style="background-color: white;">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" onclick="deleteMain()">Eliminar</button>
+            <button type="button" class="btn btn-danger" onclick="deleteMarca()">Eliminar</button>
         </div>
     </div>
 </div>
@@ -104,12 +104,14 @@
 <!-- *********************************** script modal *********************************** -->
 <script>
     var modal = document.getElementById('myModal');
-    var content_pedimento = document.getElementById('textoPedimento');
+    var content_marca = document.getElementById('textoMarca');
     var pk_borrar = document.getElementById('idBorrar');
 
     function open_modal_borrar(item, id) {
-        content_pedimento.innerHTML = item;
+        content_marca.innerHTML = item;
         pk_borrar.innerHTML = id;
     }
 
-</script> {% endblock %}
+</script>
+
+{% endblock %}

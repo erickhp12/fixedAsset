@@ -50,7 +50,9 @@
                     <th>Correo</th>
                     <th>Activo</th>
                     <th>fecha de inicio</th>
-                    <th>Acciones</th>
+                    {% if request.user.is_superuser %}
+                        <th>Acciones</th>
+                    {% endif %}
                 </tr>
             </thead>
             {% for entity in entities %}
@@ -61,12 +63,13 @@
                     <td>{{ entity.email }}</td>
                     <td>{{ entity.is_active }}</td>
                     <td>{{ entity.date_joined }}</td>
-                    <td>
-                        <a href="{{ entity.url_editar_main }}">
+                    {% if request.user.is_superuser %}
+                        <td>
+                            <a href="/admin/auth/user/{{entity.pk}}/change/">
                             <label class="glyphicon glyphicon-pencil"></label> Editar</a>
-                    </td>
+                        </td>
+                    {% endif %}
                 </tr>
-
             </tbody>
             {% endfor %}
         </table>

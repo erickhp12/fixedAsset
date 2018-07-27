@@ -6,18 +6,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from login.forms import LoginForm
-
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
-    @method_decorator(login_required(login_url='login.view.url'))
-    def get(self, request, *args, **kwargs):
-        
-        context = {}
-
-        return render(request, self.template_name,context)
-
-
+from marca.models import Marca
+from main.models import Main
+from django.contrib.auth.models import User
 class LoginView(TemplateView):
     template_name = 'login.html'
 
@@ -56,6 +47,34 @@ class LoginView(TemplateView):
                     'mensaje': mensaje
                     }
             return render(request, self.template_name, ctx)
+
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, *args, **kwargs):
+        marcas = Marca.objects.all().count()
+        pedimentos = Main.objects.count()
+        usuarios = User.objects.count()
+        cdJuarez = Main.objects.filter(origen='Cd. Juarez').count()
+        valleHermoso = Main.objects.filter(origen='Valle Hermoso').count()
+        terminados = Main.objects.filter(terminado=True).count()
+        pendientes = Main.objects.filter(terminado=False).count()
+        print "ciudad juarez"
+        print cdJuarez
+
+        context = {
+            'marcas':marcas,
+            'pedimentos':pedimentos,
+            'usuarios':usuarios,
+            'cdJuarez':cdJuarez,
+            'terminados': terminados,
+            'pendientes':pendientes,
+            'valleHermoso':valleHermoso,
+        }
+
+        return render(request, self.template_name, context)
 
 
 class MisionView(TemplateView):
