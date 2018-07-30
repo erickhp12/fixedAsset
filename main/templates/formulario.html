@@ -45,9 +45,9 @@
                     <div class="form-group col-md-6">
                         <label>Numero de proyecto</label>
                         {% if entity.numProyecto %}
-                            <input type="text" value="{{ entity.numProyecto}}" class="input-personalized" name="numProyecto" id="numProyecto" required>
+                            <input type="text" value="{{ entity.numProyecto}}" class="input-personalized" name="numProyecto" id="numProyecto">
                         {% else %}
-                            <input type="text" name="numProyecto" id="numProyecto" class="input-personalized" required>
+                            <input type="text" name="numProyecto" id="numProyecto" class="input-personalized">
                         {% endif %}
                     </div>
                 </fieldset>
@@ -174,17 +174,15 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Imagen</label><br>
-                        {% if entity.imagen.url != null %}
+                        {% if entity.imagen %}
                             <p class="p-file">Actualmente &nbsp;&nbsp;
                             <a target="blank" href="{{ entity.imagen.url }}" class="link-descargable">{{ entity.imagen }}</a>
-                            {% if puedeEditar == True %}
-                                <br><a class="link-descargable" style="color:rgb(235, 106, 1)" href="/admin/main/main/{{entity.pk}}/change/">Subir otro archivo</a>
-                            {% endif %}
+                        {% endif %}
+                        {% if puedeEditar == True %}
+                            <br><a class="link-descargable" style="color:rgb(235, 106, 1)" href="/admin/main/main/{{entity.pk}}/change/">Subir otro archivo</a>
+                        {% endif %}
                         </p>
                     </div>
-                    {% else %}
-                    <a target="blank" class="link-descargable" href="/admin/main/main/{{entity.pk}}/change/">Subir otro archivo</a>
-                    {% endif %}
                 </fieldset>
                 <fieldset class="fieldset">
                     <div class="form-group col-md-12">

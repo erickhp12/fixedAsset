@@ -33,7 +33,12 @@ body {
     display: block;
   }
 }
-
+.main-logo{
+    max-width: 166px;
+    min-height: 51px;
+    margin-left: -15px;
+    margin-top: -15px;
+}
 
 
 

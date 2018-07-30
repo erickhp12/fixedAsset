@@ -3,7 +3,7 @@ from django.db.models import permalink
 from django.contrib.auth.models import User
 from marca.models import Marca
 
-CIUDADES= (("Cd. Juarez", "Cd. Juarez"), ("Valle Hermoso", "Valle Hermoso"))
+CIUDADES= (("Ciudad Juarez", "Ciudad Juarez"), ("Valle Hermoso", "Valle Hermoso"))
 
 class Main(models.Model):
     user = models.ForeignKey(User, null=False, blank=False)
@@ -26,9 +26,13 @@ class Main(models.Model):
     imagen = models.ImageField(null=True, blank=True, upload_to='main', verbose_name='Imagen')
 
     def save(self, force_insert=False, force_update=False, using=None):
-        if self.pedimento is None:
+        print "Entro a metodo save "
+        print "|" + self.numProyecto + "|"
+        if len(self.numProyecto) == 0 or len(self.ordenCompra) == 0 or len(self.modelo) == 0 or len(self.serie) == 0 or len(self.origen) == 0 or len(self.origen) == 0 or len(self.precio) == 0:
+            print "entro 1"
             self.terminado = False
         else:
+            print "entro 2"
             self.terminado = True
         super(Main, self).save()
 

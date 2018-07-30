@@ -67,6 +67,7 @@ class MainListView(ListView):
         
         return render(self.request, self.template_name, context)
 
+
 class MainFormView(CreateView):
     template_name = "formulario.html"
 
@@ -221,22 +222,22 @@ class UpdateMainFormView(ListView):
         imagen = request.POST.get('imagen')
 
         print "checando si tengo datos EDITAR"
-        print user
-        print pedimento
-        print numProyecto
-        print localizacion
-        print ordenCompra
-        print marca
-        print modelo
-        print serie
-        print origen
-        print precio
-        print tipoCambio
-        print fecha_ingreso
-        print fecha_pedimento
-        print descripcion
-        print jssID
-        print imagen
+        print "User " + str(user)
+        print "Pedimento " + str(pedimento)
+        print "Num Proyecto " + str(numProyecto)
+        print "Localizacion " + str(localizacion)
+        print "Orden compra " + str(ordenCompra)
+        print "Marca " + str(marca)
+        print "Modelo " + str(modelo)
+        print "Serie " + str(serie)
+        print "Origen " + str(origen)
+        print "Precio " + str(precio)
+        print "Tipo Cambio  " + str(tipoCambio)
+        print "fecha ingreso " + str(fecha_ingreso)
+        print "fecha pedimento " + str(fecha_pedimento)
+        print "descripcion " + str(descripcion)
+        print "ID " + str(jssID)
+        print "Imagen " + str(imagen)
 
         try:
             main = Main.objects.get(id=pk)
@@ -257,8 +258,8 @@ class UpdateMainFormView(ListView):
             main.imagen = imagen
             main.save()
         except Exception as e:
-            print "ALGO SALIO MAL EDITAR" + str(e)
-            mensaje = "Error al editar gasto " + str(e)
+            print "ALGO SALIO MAL EDITAR " + str(e)
+            mensaje = "Error al editar fomulario " + str(e)
 
         context = {
                     'entities': entities,

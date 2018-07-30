@@ -69,7 +69,7 @@ textarea{
   }
 
 .total {
-	background-color: rgb(240, 134, 44);
+	background-color: rgba(254,80,0,1);
 	color: white;
 	border-radius: 15px;
 	padding-left: 8px;
@@ -78,7 +78,7 @@ textarea{
 }
 
 .paginacion {
-	background-color: rgb(240, 134, 44);
+	background-color: rgba(254,80,0,1);
 	color: white;
 	border-radius: 15px;
 	padding-left: 8px;
@@ -101,7 +101,7 @@ textarea{
 }
 
 .btn-agregar {
-	background: #f0862c;
+	background: rgba(254,80,0,1);;
     color: white;
     font-weight: 700;
 }
@@ -256,8 +256,8 @@ textarea{
   }
 
 .a-paginador {
-	background-color: #f0862c;
-	border-color: #f0862c;
+	background-color: rgba(254,80,0,1);
+	border-color: rgba(254,80,0,1);
 	color: white;
 	padding: 3px;
 	border-radius: 4px;
@@ -270,20 +270,6 @@ textarea{
 		width: 100%;
 		margin-bottom: 15px;
 	}
-}
-/* -------------------------------------- print section ------------------------------------------------ */
-.p-file{
-	font-size: 16px;
-    font-weight: 600;
-}
-
-.link-descargable{
-    color: #4eabf3;
-    font-size: 16px;
-    font-weight: 600;
-}
-.texto-link-descargable{
-
 }
 
 /* -------------------------------------- print section ------------------------------------------------ */

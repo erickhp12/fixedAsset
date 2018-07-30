@@ -57,7 +57,7 @@ class IndexView(TemplateView):
         marcas = Marca.objects.all().count()
         pedimentos = Main.objects.count()
         usuarios = User.objects.count()
-        cdJuarez = Main.objects.filter(origen='Cd. Juarez').count()
+        cdJuarez = Main.objects.filter(origen='Ciudad Juarez').count()
         valleHermoso = Main.objects.filter(origen='Valle Hermoso').count()
         terminados = Main.objects.filter(terminado=True).count()
         pendientes = Main.objects.filter(terminado=False).count()
